@@ -6,9 +6,9 @@ __A DAV client for Java__
 
 ## Requirements
 
-[XmlObjects](https://github.com/dmfs/xmlobjects) for parsing and serialization.
-[jDav](https://github.com/dmfs/jdav) for definitions of DAV XML elements.
-[http-client-interfaces](https://github.com/dmfs/http-client-interfaces) to model the HTTP client.
+* [XmlObjects](https://github.com/dmfs/xmlobjects) for parsing and serialization.
+* [jDav](https://github.com/dmfs/jdav) for definitions of DAV XML elements.
+* [http-client-interfaces](https://github.com/dmfs/http-client-interfaces) to model the HTTP client.
 
 ## Example
 
@@ -19,40 +19,43 @@ The Executor used in the example needs to implement the IHttpExecutor interface 
 
 ```java
 
-    // create a DavContext. This needs to be done only once. Multiple requests can share the same DavContext, when executed consecutively.
-    DavContext davContext = new DavContext();
+// create a DavContext. This needs to be done only once.
+// Multiple requests can share the same DavContext, when executed consecutively.
+DavContext davContext = new DavContext();
 
-    // create the request and add a few properties to query from the server
-    PropFind request = new PropFind(davContext, Depth.one);
-    propfind.addProperties(WebDav.Properties.DISPLAYNAME,
-        WebDav.Properties.RESOURCETYPE,
-        WebDav.Properties.GETETAG);
+// create the request and add a few properties to query from the server
+PropFind request = new PropFind(davContext, Depth.one);
+propfind.addProperties(WebDav.Properties.DISPLAYNAME,
+    WebDav.Properties.RESOURCETYPE,
+    WebDav.Properties.GETETAG);
 
-    // send the request and get the MultistatusResponseReader to iterate the Response elements
-    MultistatusResponseReader result = executor.execute(requestUrl, request);
+// send the request and get the MultistatusResponseReader to iterate the
+// Response elements
+MultistatusResponseReader result = executor.execute(requestUrl, request);
 
-    Response response = null;
-    while (result.hasNextResponse())
+Response response = null;
+while (result.hasNextResponse())
+{
+    // get the next response, recycling the previous one to avoid
+    // allocation of new instances whenever possible.
+    response = result.getNextResponse(response);
+
+    // check if the response contains Properties or a status
+    if (response.getStatus() == Response.STATUS_NONE)
     {
-        // get the next response, recycling the previous one to avoid
-        // allocation of new instances whenever possible.
-        response = result.getNextResponse(response);
+        // this is a response with properties
 
-        // check if the response contains Properties or a status
-        if (response.getStatus() == Response.STATUS_NONE)
-        {
-            // this is a response with properties
+        // get the response URL
+        URI url = response.getHref();
 
-            // get the response URL
-            URI url = response.getHref();
+        // get the property values
+        // this returns null if the property was not returned by the server
+        String displayName = response.getPropertyValue(WebDav.Properties.DISPLAYNAME);
 
-            // get the property values, this returns null if the property was not returned by the server
-            String displayName = response.getPropertyValue(WebDav.Properties.DISPLAYNAME);
-
-            // do something with the response ...
-            // ...
-	}
+        // do something with the response ...
+        // ...
     }
+}
 
 ```
 
