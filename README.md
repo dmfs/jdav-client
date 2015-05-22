@@ -25,7 +25,7 @@ DavContext davContext = new DavContext();
 
 // create the request and add a few properties to query from the server
 PropFind request = new PropFind(davContext, Depth.one);
-propfind.addProperties(WebDav.Properties.DISPLAYNAME,
+request.addProperties(WebDav.Properties.DISPLAYNAME,
     WebDav.Properties.RESOURCETYPE,
     WebDav.Properties.GETETAG);
 
