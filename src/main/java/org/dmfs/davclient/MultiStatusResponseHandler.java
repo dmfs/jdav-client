@@ -27,7 +27,7 @@ import org.dmfs.httpessentials.client.HttpResponseHandler;
 import org.dmfs.httpessentials.exceptions.ProtocolError;
 import org.dmfs.httpessentials.exceptions.ProtocolException;
 import org.dmfs.jems.optional.decorators.Sieved;
-import org.dmfs.jems.predicate.composite.AnyOf;
+import org.dmfs.jems2.predicate.AnyOf;
 
 import java.io.IOException;
 
@@ -72,7 +72,7 @@ public class MultiStatusResponseHandler implements HttpResponseHandler<Multistat
          * Check that the content-type is correct. The specs say that application/xml is the right one, but text/xml should be tolerated.
          */
         if (!new Sieved<>(
-            new AnyOf<>(new TypeEquals(CONTENT_TYPE_APPLICATION_XML), new TypeEquals(CONTENT_TYPE_TEXT_XML)),
+            new AnyOf<>(new TypeEquals(CONTENT_TYPE_APPLICATION_XML), new TypeEquals(CONTENT_TYPE_TEXT_XML))::satisfiedBy,
             entity.contentType()).isPresent())
         {
             throw new ProtocolException("invalid content-type '" + entity.contentType() + "'");
