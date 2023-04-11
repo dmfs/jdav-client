@@ -39,8 +39,6 @@ import java.io.InputStream;
 
 /**
  * An abstract wrapper for XML responses.
- *
- * @author Marten Gajda <marten@dmfs.org>
  */
 public abstract class XmlResponseReader<T>
 {

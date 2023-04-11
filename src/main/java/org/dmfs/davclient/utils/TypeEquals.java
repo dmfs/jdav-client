@@ -1,7 +1,7 @@
 package org.dmfs.davclient.utils;
 
 import org.dmfs.httpessentials.types.MediaType;
-import org.dmfs.jems.predicate.Predicate;
+import org.dmfs.jems2.Predicate;
 
 
 public final class TypeEquals implements Predicate<MediaType>

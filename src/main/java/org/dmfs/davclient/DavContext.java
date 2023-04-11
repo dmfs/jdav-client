@@ -20,6 +20,7 @@
 package org.dmfs.davclient;
 
 import org.dmfs.dav.DavParserContext;
+import org.dmfs.httpessentials.HttpStatus;
 
 
 /**

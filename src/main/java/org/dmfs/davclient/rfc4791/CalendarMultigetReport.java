@@ -72,9 +72,6 @@ public class CalendarMultigetReport extends MultiStatusReport
 
     /**
      * Creates a {@link CalendarMultigetReport} without depth header. Use {@link #CalendarMultigetReport(DavContext, Depth)} to set a specific {@link Depth}.
-     * <p>
-     * To build an allprop report use {@link #ReportAllProp(DavContext, Depth)}, to build a propname report use {@link #ReportPropName(DavContext, Depth)}.
-     * </p>
      *
      * @param davContext
      *     A {@link DavContext}.
@@ -87,9 +84,6 @@ public class CalendarMultigetReport extends MultiStatusReport
 
     /**
      * Creates a {@link CalendarMultigetReport} using the given {@link Depth}.
-     * <p>
-     * To build an allprop report use {@link #ReportAllProp(DavContext, Depth)}, to build a propname report use {@link #ReportPropName(DavContext, Depth)}.
-     * </p>
      *
      * @param davContext
      *     A {@link DavContext}.
