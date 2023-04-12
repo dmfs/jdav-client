@@ -83,7 +83,7 @@ public abstract class XmlResponseReader<T>
             XmlPullParser parser = factory.newPullParser();
 
             // use the charset param of the response, if there is any
-            String charset = new Backed<String>(new Mapped<>(ct -> ct.charset("UTF-8"), contentType), () -> "UTF-8").value();
+            String charset = new Backed<>(new Mapped<>(ct -> ct.charset("UTF-8"), contentType), () -> "UTF-8").value();
 
             mInput = content.contentStream();
 

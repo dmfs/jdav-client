@@ -75,6 +75,7 @@ dependencies {
     api 'org.dmfs:xmlobjects:0.4.3'
     api 'org.dmfs:jdav:0.1.7'
     api 'org.dmfs:http-client-essentials:0.20'
+    implementation 'org.dmfs:jems:1.44'
     implementation 'org.dmfs:jems2:2.18.0'
     implementation 'org.dmfs:http-client-headers:0.20'
     implementation 'org.dmfs:http-client-basics:0.20'
